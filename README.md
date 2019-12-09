@@ -1,3 +1,3 @@
-# angular-pgjwp2
+# angular-snake
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-pgjwp2)
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-snake-ah)
