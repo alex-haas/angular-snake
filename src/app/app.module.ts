@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import {
   MatAutocompleteModule,
@@ -43,15 +43,18 @@ import { AppComponent } from './app.component';
 import { MainmenuComponent } from './mainmenu/mainmenu.component';
 import { GameComponent } from './game/game.component';
 
+const appRoutes: Routes = [
+  { path: 'game/:player', component: GameComponent },
+  { path: '**', component: MainmenuComponent }
+];
+
 @NgModule({
-  imports:      [ 
+  imports: [ 
     BrowserModule, 
     FormsModule, 
     MatAutocompleteModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-      { path: '', component: MainmenuComponent },
-    ]),
+    RouterModule.forRoot(appRoutes),
 
     // Material Modules
     MatButtonModule,
@@ -85,8 +88,12 @@ import { GameComponent } from './game/game.component';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule 
-    ],
-  declarations: [ AppComponent, MainmenuComponent, GameComponent ],
-  bootstrap:    [ AppComponent ]
+  ],
+  declarations: [ 
+    AppComponent, 
+    MainmenuComponent, 
+    GameComponent 
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
