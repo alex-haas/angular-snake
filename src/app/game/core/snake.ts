@@ -5,7 +5,7 @@ export class Snake {
   board: Board;
   direction: Direction;
   nextDirection: Direction;
-  toGrow: number;
+  toGrow: number = 0;
 
   constructor(board: Board) {
     this.board = board;
@@ -22,7 +22,7 @@ export class Snake {
     this.nextDirection = Direction.East;
   }
 
-  nextHeadPosition() {
+  nextHeadPosition(): Point {
     let currHead = this.body[this.body.length - 1];
     let nextHead = currHead.clone();
     switch (this.direction) {
@@ -81,7 +81,7 @@ export class Snake {
     this.nextDirection = (this.direction + 1) % 4;
   }
 
-  checkWallCollision(nextHead: Point) {
+  checkWallCollision(nextHead: Point): boolean {
     let x_col = nextHead.x < 0 || nextHead.x >= this.board.width;
     let y_col = nextHead.y < 0 || nextHead.y >= this.board.height;
     return x_col || y_col;

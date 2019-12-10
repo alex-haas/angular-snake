@@ -4,5 +4,9 @@
         "paths": {
             "@app/*": ["./app/*"]
         }
-    }
+    },
+    "forceConsitentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "noUnusedLocals": true
 }

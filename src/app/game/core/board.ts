@@ -31,5 +31,9 @@ export class Board {
   cycle() {
     this.snake.moveTail();
     this.snake.moveHead();
+
+    if (this.food.eaten) {
+      this.food.revive(this);
+    }
   }
 }

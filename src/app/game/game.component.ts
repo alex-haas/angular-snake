@@ -29,13 +29,10 @@ export class GameComponent implements OnInit {
   }
 
   @HostListener('window:keydown', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    console.log(event);
-    
+  keyEvent(event: KeyboardEvent) {    
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
       this.board.snake.turnRight();
     }
-
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
       this.board.snake.turnLeft();
     }
