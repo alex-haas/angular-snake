@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Board } from './core/board';
-import { Snake } from './core/snake';
-import { Food } from './core/food';
-import { BoardContent } from './core/board-content.enum';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { BoardContent, Food, Snake, Board } from './core';
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
 
 @Component({
   selector: 'app-game',
@@ -28,6 +30,47 @@ export class GameComponent implements OnInit {
     this.initSinglePlayerSnake();
   }
 
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
+    
+    if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+      this.snake.turnRight();
+    }
+
+    if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+      this.snake.turnLeft();
+    }
+  }
+
+  drawBoard() {
+    let canvas = this.canvas.nativeElement;
+    let ctx = canvas.getContext("2d");
+
+    for (var y = 0; y < this.board.height; y++) {
+      for (var x = 0; x < this.board.width; x++) {
+        switch (this.board[y][x]) {
+          case BoardContent.Nothing:
+            ctx.fillStyle = "#3f51b5";
+            break;
+          case BoardContent.Snake:
+            ctx.fillStyle = "#ff4081";
+            break;
+          case BoardContent.Food:
+            ctx.fillStyle = "#002984";
+            break;
+        }
+        
+        ctx.fillRect(
+          x * (this.cellSize + this.spacing) + this.padding, 
+          y * (this.cellSize + this.spacing) + this.padding, 
+          this.cellSize, 
+          this.cellSize
+        );
+      }
+    }
+  }
+
   initSinglePlayerSnake(){
     let canvas = this.canvas.nativeElement;
     let ctx = canvas.getContext("2d");
@@ -45,23 +88,16 @@ export class GameComponent implements OnInit {
     this.food = new Food();
     this.food.revive(this.board);
 
-    for (var y = 0; y < this.board.height; y++) {
-      for (var x = 0; x < this.board.width; x++) {
-        switch (this.board[y][x]) {
-          case BoardContent.Nothing:
-            ctx.fillStyle = "#3f51b5";
-            break;
-          case BoardContent.Snake:
-            ctx.fillStyle = "#ff4081";
-            break;
-          case BoardContent.Food:
-            ctx.fillStyle = "#002984";
-            break;
-        }
-        
-        ctx.fillRect(x * (this.cellSize + this.spacing) + this.padding, y * (this.cellSize + this.spacing) + this.padding, this.cellSize, this.cellSize);
-      }
-    }
+    this.drawBoard();
+
+    window.setTimeout(() => this.update(), 700);
   }
 
+  update() {
+    this.snake.moveTail();
+    this.snake.moveHead();
+    this.drawBoard();
+
+    window.setTimeout(() => this.update(), 700);
+  }
 }
