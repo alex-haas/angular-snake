@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import {
   MatAutocompleteModule,
@@ -39,14 +40,18 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
+import { MainmenuComponent } from './mainmenu/mainmenu.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   imports:      [ 
     BrowserModule, 
     FormsModule, 
     MatAutocompleteModule,
-    BrowserAnimationsModule ,
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      { path: '', component: MainmenuComponent },
+    ]),
 
     // Material Modules
     MatButtonModule,
@@ -81,7 +86,7 @@ import { HelloComponent } from './hello.component';
     MatTooltipModule,
     MatStepperModule 
     ],
-  declarations: [ AppComponent, HelloComponent ],
+  declarations: [ AppComponent, MainmenuComponent, GameComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
