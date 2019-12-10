@@ -2,3 +2,12 @@ p {
   font-family: Lato;
 }
 
+#main-canvas {
+  position: fixed;
+  display: inline;
+  left: 0px;
+  top: 0px;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+}
