@@ -1,4 +1,4 @@
-import { BoardContent } from './board-content.enum';
+import { BoardContent, Snake, Food } from '.';
 
 export class BoardRow {
   [index: number] : BoardContent;
@@ -8,6 +8,9 @@ export class Board {
   width: number;
   height: number;
   [index: number] : BoardRow;
+
+  snake: Snake;
+  food: Food;
 
   constructor(width: number, height: number) {
     this.width = width;
@@ -19,5 +22,14 @@ export class Board {
         this[y][x] = BoardContent.Nothing;
       }
     }
+
+    this.snake = new Snake(this);
+    this.food = new Food();
+    this.food.revive(this);
+  }
+
+  cycle() {
+    this.snake.moveTail();
+    this.snake.moveHead();
   }
 }

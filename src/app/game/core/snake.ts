@@ -5,6 +5,7 @@ export class Snake {
   board: Board;
   direction: Direction;
   nextDirection: Direction;
+  toGrow: number;
 
   constructor(board: Board) {
     this.board = board;
@@ -24,7 +25,7 @@ export class Snake {
   nextHeadPosition() {
     let currHead = this.body[this.body.length - 1];
     let nextHead = currHead.clone();
-    switch (this.nextDirection) {
+    switch (this.direction) {
       case Direction.North:
         nextHead.y -= 1;
         break;
@@ -42,16 +43,34 @@ export class Snake {
   }
 
   moveTail() {
-    let tail = this.body.shift();
-    this.board[tail.y][tail.x] = BoardContent.Nothing;
+    if (this.toGrow > 0) {
+      this.toGrow -= 1;
+    } else {
+      let tail = this.body.shift();
+      this.board[tail.y][tail.x] = BoardContent.Nothing;
+    }
   }
 
   moveHead() {
+    this.direction = this.nextDirection;
     let nextHead = this.nextHeadPosition();
-    // todo: check collision
+    var isDead = this.checkWallCollision(nextHead);
+
+    let boardContent = this.board[nextHead.y][nextHead.x];
+    if (boardContent == BoardContent.Snake) {
+      isDead = true;
+    }
+    if (boardContent == BoardContent.Food) {
+      this.toGrow += this.board.food.value;
+      this.board.food.eaten = true;
+    }
     // todo: check for food
-    this.body.push(nextHead);
-    this.board[nextHead.y][nextHead.x] = BoardContent.Snake;
+    if (isDead) {
+
+    } else {
+      this.body.push(nextHead);
+      this.board[nextHead.y][nextHead.x] = BoardContent.Snake;
+    }
   }
 
   turnLeft() {
@@ -60,5 +79,11 @@ export class Snake {
 
   turnRight() {
     this.nextDirection = (this.direction + 1) % 4;
+  }
+
+  checkWallCollision(nextHead: Point) {
+    let x_col = nextHead.x < 0 || nextHead.x >= this.board.width;
+    let y_col = nextHead.y < 0 || nextHead.y >= this.board.height;
+    return x_col || y_col;
   }
 }

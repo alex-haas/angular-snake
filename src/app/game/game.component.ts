@@ -17,8 +17,6 @@ export class GameComponent implements OnInit {
   canvas: ElementRef<HTMLCanvasElement>;
 
   board: Board;
-  snake: Snake;
-  food: Food;
 
   cellSize: number = 24;
   padding: number = 16;
@@ -35,11 +33,11 @@ export class GameComponent implements OnInit {
     console.log(event);
     
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.snake.turnRight();
+      this.board.snake.turnRight();
     }
 
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.snake.turnLeft();
+      this.board.snake.turnLeft();
     }
   }
 
@@ -57,7 +55,17 @@ export class GameComponent implements OnInit {
             ctx.fillStyle = "#ff4081";
             break;
           case BoardContent.Food:
-            ctx.fillStyle = "#002984";
+            switch (this.board.food.value) {
+              case 1:
+                ctx.fillStyle = "#002984";
+                break;
+              case 2:
+                ctx.fillStyle = "#001970";
+                break;
+              case 3:
+                ctx.fillStyle = "#000051";
+                break;
+            }
             break;
         }
         
@@ -84,18 +92,13 @@ export class GameComponent implements OnInit {
     window.onresize = fitCanvasSize;
 
     this.board = new Board(16, 9);
-    this.snake = new Snake(this.board);
-    this.food = new Food();
-    this.food.revive(this.board);
-
     this.drawBoard();
 
     window.setTimeout(() => this.update(), 700);
   }
 
   update() {
-    this.snake.moveTail();
-    this.snake.moveHead();
+    this.board.cycle();
     this.drawBoard();
 
     window.setTimeout(() => this.update(), 700);
