@@ -1,19 +1,23 @@
 <canvas #maincanvas id="main-canvas"></canvas>
 
-<mat-toolbar color="primary">
-  <span>Angular Snake V1</span>
-</mat-toolbar>
-
-  <p>
-    Start editing to see some magic happen :)
-  </p>
-
-  <h3>Stroked Buttons</h3>
-  <div class="example-button-row">
-    <button mat-stroked-button>Basic</button>
-    <button mat-stroked-button color="primary">Primary</button>
-    <button mat-stroked-button color="accent">Accent</button>
-    <button mat-stroked-button color="warn">Warn</button>
-    <button mat-stroked-button disabled>Disabled</button>
-    <a mat-stroked-button routerLink=".">Link</a>
-  </div>
+<mat-card id="maincard">
+  <mat-card-title>Snake</mat-card-title>
+  <mat-card-subtitle>The angular kind</mat-card-subtitle>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item> 
+        <button mat-raised-button color="primary" (click)="startGame(1)">1 Player</button> 
+      </mat-list-item>
+      <mat-list-item> 
+        <button mat-raised-button color="primary" disabled>2 Player</button> 
+      </mat-list-item>
+      <mat-list-item> 
+        <button mat-raised-button color="primary" disabled>3 Player</button> 
+      </mat-list-item>
+      <mat-list-item> 
+        <button mat-raised-button color="primary" disabled>$ Player</button> 
+      </mat-list-item>
+    </mat-list>    
+  </mat-card-content>
+</mat-card>

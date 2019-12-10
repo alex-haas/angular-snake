@@ -9,13 +9,20 @@ export class MainmenuComponent implements OnInit {
 
   @ViewChild('maincanvas', { static: true }) 
   canvas: ElementRef<HTMLCanvasElement>;
-  ctx: any;
 
   constructor() {}
 
+  ngOnInit() {
+    this.initBackground();
+  }
+
+  startGame(playerCount: number) {
+    
+  }
+
   initBackground() {
     let canvas = this.canvas.nativeElement;
-    let ctx = this.ctx;
+    let ctx = canvas.getContext("2d");
     
     function fitCanvasSize() {
       canvas.width = document.documentElement.clientWidth;
@@ -84,11 +91,4 @@ export class MainmenuComponent implements OnInit {
     };
     update();
   }
-
-  ngOnInit() {
-    this.ctx = this.canvas.nativeElement.getContext('2d');
-
-    this.initBackground();
-  }
-
 }
