@@ -1,23 +1,25 @@
-<canvas #maincanvas id="main-canvas"></canvas>
+<div>
+  <canvas #maincanvas id="main-canvas"></canvas>
 
-<mat-card id="maincard">
-  <mat-card-title>Snake</mat-card-title>
-  <mat-card-subtitle>The angular kind</mat-card-subtitle>
-  <mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-list>
-      <mat-list-item> 
-        <button mat-raised-button color="primary" [routerLink]="['/game', '1']">1 Player</button> 
-      </mat-list-item>
-      <mat-list-item> 
-        <button mat-raised-button color="primary" disabled>2 Player</button> 
-      </mat-list-item>
-      <mat-list-item> 
-        <button mat-raised-button color="primary" disabled>3 Player</button> 
-      </mat-list-item>
-      <mat-list-item> 
-        <button mat-raised-button color="primary" disabled>4 Player</button> 
-      </mat-list-item>
-    </mat-list>    
-  </mat-card-content>
-</mat-card>
+  <mat-card id="maincard">
+    <mat-card-title>Snake</mat-card-title>
+    <mat-card-subtitle>The angular kind</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-list>
+        <mat-list-item> 
+          <button mat-raised-button color="primary" [routerLink]="['/game', '1']">1 Player</button> 
+        </mat-list-item>
+        <mat-list-item> 
+          <button mat-raised-button color="primary" disabled>2 Player</button> 
+        </mat-list-item>
+        <mat-list-item> 
+          <button mat-raised-button color="primary" disabled>3 Player</button> 
+        </mat-list-item>
+        <mat-list-item> 
+          <button mat-raised-button color="primary" disabled>4 Player</button> 
+        </mat-list-item>
+      </mat-list>    
+    </mat-card-content>
+  </mat-card>
+</div>

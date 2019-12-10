@@ -16,10 +16,6 @@ export class MainmenuComponent implements OnInit {
     this.initBackground();
   }
 
-  startGame(playerCount: number) {
-    
-  }
-
   initBackground() {
     let canvas = this.canvas.nativeElement;
     let ctx = canvas.getContext("2d");

@@ -8,11 +8,14 @@
 }
 
 #maincard {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 200px;
-    margin-top: 50px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 200px;
+  top: 50px;
+  position: absolute;
 }
 
 .mat-raised-button {
