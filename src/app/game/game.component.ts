@@ -18,9 +18,12 @@ export class GameComponent implements OnInit {
 
   board: Board;
 
-  cellSize: number = 24;
-  padding: number = 16;
-  spacing: number = 1;
+  refWidth: number = 640;
+  refHeight: number = 480;
+  cellSize: number = 20;
+  vertPadding: number = 16;
+  horzPadding: number = 16;
+  spacing: number = 1.5;
 
   constructor() { }
 
@@ -42,6 +45,7 @@ export class GameComponent implements OnInit {
     let canvas = this.canvas.nativeElement;
     let ctx = canvas.getContext("2d");
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var y = 0; y < this.board.height; y++) {
       for (var x = 0; x < this.board.width; x++) {
         switch (this.board[y][x]) {
@@ -67,8 +71,8 @@ export class GameComponent implements OnInit {
         }
         
         ctx.fillRect(
-          x * (this.cellSize + this.spacing) + this.padding, 
-          y * (this.cellSize + this.spacing) + this.padding, 
+          x * (this.cellSize + this.spacing) + this.horzPadding, 
+          y * (this.cellSize + this.spacing) + this.vertPadding, 
           this.cellSize, 
           this.cellSize
         );
@@ -80,15 +84,26 @@ export class GameComponent implements OnInit {
     let canvas = this.canvas.nativeElement;
     let ctx = canvas.getContext("2d");
 
+    let boardWidth = 27;
+    let boardHeight = 15;
+    let that = this;
     function fitCanvasSize() {
       canvas.width = document.documentElement.clientWidth;
       canvas.height = (canvas.width / 16) * 9;
+
+      let min_v_padding = canvas.height * 0.03;
+      let min_h_padding = canvas.width * 0.03;
+      let h_cellSize = (canvas.width - 2 * min_h_padding - (boardWidth - 1) * that.spacing) / boardWidth;
+      let v_cellSize = (canvas.height - 2 * min_v_padding - (boardHeight - 1) * that.spacing) / boardHeight;
+      that.cellSize = Math.min(v_cellSize, h_cellSize);
+      that.horzPadding = (canvas.width - (that.cellSize * boardWidth + (boardWidth - 1) * that.spacing)) / 2;
+      that.vertPadding = (canvas.height - (that.cellSize * boardHeight + (boardHeight - 1) * that.spacing)) / 2;
     }
 
     fitCanvasSize();
     window.onresize = fitCanvasSize;
 
-    this.board = new Board(16, 9);
+    this.board = new Board(boardWidth, boardHeight);
     this.drawBoard();
 
     window.setTimeout(() => this.update(), 700);
