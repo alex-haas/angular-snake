@@ -84,20 +84,21 @@ export class GameComponent implements OnInit {
     let canvas = this.canvas.nativeElement;
     let ctx = canvas.getContext("2d");
 
-    let boardWidth = 27;
-    let boardHeight = 15;
+    let boardWidth = 30;
+    let boardHeight = 12;
     let that = this;
     function fitCanvasSize() {
-      canvas.width = document.documentElement.clientWidth;
-      canvas.height = (canvas.width / 16) * 9;
-
-      let min_v_padding = canvas.height * 0.03;
+      let clientHeight = document.documentElement.clientHeight;
+      let clientWidth = document.documentElement.clientWidth;
+      let maxWidth = (clientHeight / 9) * 16;
+      canvas.width = Math.min(clientWidth, maxWidth);
+      
       let min_h_padding = canvas.width * 0.03;
-      let h_cellSize = (canvas.width - 2 * min_h_padding - (boardWidth - 1) * that.spacing) / boardWidth;
-      let v_cellSize = (canvas.height - 2 * min_v_padding - (boardHeight - 1) * that.spacing) / boardHeight;
-      that.cellSize = Math.min(v_cellSize, h_cellSize);
-      that.horzPadding = (canvas.width - (that.cellSize * boardWidth + (boardWidth - 1) * that.spacing)) / 2;
-      that.vertPadding = (canvas.height - (that.cellSize * boardHeight + (boardHeight - 1) * that.spacing)) / 2;
+      that.cellSize = (canvas.width - 2 * min_h_padding - (boardWidth - 1) * that.spacing) / boardWidth;
+      that.horzPadding = min_h_padding;
+      that.vertPadding = min_h_padding;
+
+      canvas.height = boardHeight * that.cellSize + (boardHeight - 1) * that.spacing + 2 * that.vertPadding;
     }
 
     fitCanvasSize();
