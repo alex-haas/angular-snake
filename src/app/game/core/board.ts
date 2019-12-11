@@ -36,4 +36,8 @@ export class Board {
       this.food.revive(this);
     }
   }
+
+  isGameOver(): boolean {
+    return this.snake.isDead;
+  }
 }

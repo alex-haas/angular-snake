@@ -112,8 +112,11 @@ export class GameComponent implements OnInit {
 
   update() {
     this.board.cycle();
-    this.drawBoard();
+    if (this.board.isGameOver()) {
 
-    window.setTimeout(() => this.update(), 700);
+    } else {
+      this.drawBoard();
+      window.setTimeout(() => this.update(), 700);
+    }
   }
 }

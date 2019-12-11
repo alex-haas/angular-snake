@@ -6,6 +6,7 @@ export class Snake {
   direction: Direction;
   nextDirection: Direction;
   toGrow: number = 0;
+  isDead: boolean = false;
 
   constructor(board: Board) {
     this.board = board;
@@ -66,7 +67,7 @@ export class Snake {
     }
     // todo: check for food
     if (isDead) {
-
+      this.isDead = true;
     } else {
       this.body.push(nextHead);
       this.board[nextHead.y][nextHead.x] = BoardContent.Snake;
