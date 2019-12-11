@@ -1,8 +1,10 @@
 <div>
   <mat-toolbar color="primary">
-    <mat-icon>keyboard_backspace</mat-icon>
+      <button [routerLink]="['']" mat-icon-button aria-label="Example icon-button with a heart icon">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+    
     <span>Snake - Single Player</span>
   </mat-toolbar>
   <canvas #gamecanvas id="game-canvas"></canvas>
-  <button mat-raised-button color="primary" [routerLink]="['']">Return to Main Menu</button> 
 </div>
