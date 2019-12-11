@@ -1,4 +1,6 @@
-import { BoardContent, Snake, Food } from '.';
+import { BoardContent } from './board-content.enum';
+import { Food } from './food';
+import { Snake } from './snake';
 
 export class BoardRow {
   [index: number] : BoardContent;

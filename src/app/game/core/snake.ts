@@ -1,4 +1,7 @@
-import { Point, BoardContent, Board, Direction } from '.';
+import { BoardContent } from './board-content.enum';
+import { Board } from './board';
+import { Point } from './point';
+import { Direction } from './direction.enum';
 
 export class Snake {
   body: Point[];

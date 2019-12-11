@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { fadeAnimation } from './route-animations';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ],
   animations: [fadeAnimation]

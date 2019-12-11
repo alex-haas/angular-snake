@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 import {
   MatAutocompleteModule,
@@ -94,6 +95,7 @@ const appRoutes: Routes = [
     MainmenuComponent, 
     GameComponent 
   ],
+  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
