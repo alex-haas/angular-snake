@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { BoardContent, Food, Snake, Board } from './core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Board, BoardContent } from './core';
+import { AppColors } from '../constants'
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
@@ -18,12 +19,11 @@ export class GameComponent implements OnInit {
 
   board: Board;
 
-  refWidth: number = 640;
-  refHeight: number = 480;
-  cellSize: number = 20;
-  vertPadding: number = 16;
-  horzPadding: number = 16;
+  cellSize: number;
+  vertPadding: number;
+  horzPadding: number;
   spacing: number = 1.5;
+  gameRunning: boolean = false;
 
   constructor() { }
 
@@ -50,21 +50,21 @@ export class GameComponent implements OnInit {
       for (var x = 0; x < this.board.width; x++) {
         switch (this.board[y][x]) {
           case BoardContent.Nothing:
-            ctx.fillStyle = "#3f51b5";
+            ctx.fillStyle = AppColors.EmptyCell;
             break;
           case BoardContent.Snake:
-            ctx.fillStyle = "#ff4081";
+            ctx.fillStyle = AppColors.Snake;
             break;
           case BoardContent.Food:
             switch (this.board.food.value) {
               case 1:
-                ctx.fillStyle = "#002984";
+                ctx.fillStyle = AppColors.Food1;
                 break;
               case 2:
-                ctx.fillStyle = "#001970";
+                ctx.fillStyle = AppColors.Food2;
                 break;
               case 3:
-                ctx.fillStyle = "#000051";
+                ctx.fillStyle = AppColors.Food3;
                 break;
             }
             break;
@@ -106,17 +106,23 @@ export class GameComponent implements OnInit {
 
     this.board = new Board(boardWidth, boardHeight);
     this.drawBoard();
+  }
 
-    window.setTimeout(() => this.update(), 700);
+  startGame() {
+    if (this.gameRunning) {
+      return;
+    }
+    this.gameRunning = true;
+    window.setTimeout(() => this.update(), 0);
   }
 
   update() {
     this.board.cycle();
     if (this.board.isGameOver()) {
-
+      this.gameRunning = false;
     } else {
       this.drawBoard();
-      window.setTimeout(() => this.update(), 700);
+      window.setTimeout(() => this.update(), 400);
     }
   }
 }

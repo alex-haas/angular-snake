@@ -7,4 +7,7 @@
     <span>Snake - Single Player</span>
   </mat-toolbar>
   <canvas #gamecanvas id="game-canvas"></canvas>
+  <mat-toolbar [style.background-color]="'#263238'">
+      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="gameRunning">Start</button> 
+  </mat-toolbar>
 </div>
