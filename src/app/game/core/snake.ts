@@ -60,15 +60,17 @@ export class Snake {
     let nextHead = this.nextHeadPosition();
     var isDead = this.checkWallCollision(nextHead);
 
-    let boardContent = this.board[nextHead.y][nextHead.x];
-    if (boardContent == BoardContent.Snake) {
-      isDead = true;
+    if (!isDead) {
+      let boardContent = this.board[nextHead.y][nextHead.x];
+      if (boardContent == BoardContent.Snake) {
+        isDead = true;
+      }
+      if (boardContent == BoardContent.Food) {
+        this.toGrow += this.board.food.value;
+        this.board.food.eaten = true;
+      }
     }
-    if (boardContent == BoardContent.Food) {
-      this.toGrow += this.board.food.value;
-      this.board.food.eaten = true;
-    }
-    // todo: check for food
+    
     if (isDead) {
       this.isDead = true;
     } else {
